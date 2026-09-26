@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,176 +8,15 @@ import {
   Terminal,
   ArrowUpRight,
 } from "lucide-react";
-
-const SERVICES = [
-  {
-    id: "ai-ml",
-    title: "AI & Machine Learning Automation",
-    shortDesc:
-      "Custom neural networks and automation protocols to eliminate manual workflows.",
-    problem:
-      "Operational friction, slow data entry, and inefficient manual tasks.",
-    deliverables: [
-      "Custom automation scripts",
-      "ML model integration",
-      "Workflow automation bots",
-    ],
-  },
-  {
-    id: "web-platform",
-    title: "Corporate Web Platforms",
-    shortDesc:
-      "High-performance digital interfaces engineered for scale, security, and conversion.",
-    problem:
-      "Poor digital presence, slow loading speeds, and disjointed brand identity.",
-    deliverables: [
-      "React/Node.js Architecture",
-      "Headless CMS Integration",
-      "Technical UI/UX Design",
-    ],
-  },
-  {
-    id: "ecommerce",
-    title: "E-Commerce Engineering",
-    shortDesc:
-      "Robust transaction pipelines and inventory management systems built for volume.",
-    problem: "Marketplace dependency and rigid, unscalable catalog structures.",
-    deliverables: [
-      "Custom Storefronts",
-      "Payment Gateway Integration",
-      "Automated Inventory Logic",
-    ],
-  },
-  {
-    id: "seo-analytics",
-    title: "SEO & Digital Analytics",
-    shortDesc:
-      "Data-driven visibility architectures and granular metric tracking dashboards.",
-    problem:
-      "Invisible in search, decisions based on instinct rather than hard data.",
-    deliverables: [
-      "Technical SEO Audits",
-      "Custom Analytics Dashboards",
-      "Conversion Rate Optimization",
-    ],
-  },
-];
-
-const SOLUTIONS = [
-  {
-    problem:
-      "Our team spends 40% of their time on manual data entry and repetitive workflows.",
-    approach:
-      "AI Automation & Scripting to bridge disconnected tools and handle repetitive routing.",
-  },
-  {
-    problem:
-      "Our current website is a slow, outdated template that doesn't reflect our enterprise quality.",
-    approach:
-      "Custom Web Platform Engineering using modern React/Vite stacks for sub-second load times.",
-  },
-  {
-    problem:
-      "We have traffic, but no clear data on what users are doing or why they leave.",
-    approach:
-      "Digital Analytics implementation with custom event tracking and visualization dashboards.",
-  },
-];
-
-const PROJECTS = [
-  {
-    id: "prj-1",
-    type: "Concept Architecture",
-    title: "Neural Ops: Workflow Routing Engine",
-    stack: ["Python", "TensorFlow", "FastAPI", "React"],
-    challenge:
-      "Legacy systems required manual human intervention to sort and tag thousands of incoming support queries daily.",
-    execution:
-      "Engineered a lightweight NLP model to pre-sort queries, integrated via REST API into the existing dashboard interface.",
-    outcome: "Query routing time reduced by 94% (< 200ms per query).",
-  },
-  {
-    id: "prj-2",
-    type: "Internal R&D",
-    title: "Velocity: Headless Commerce Template",
-    stack: ["Next.js", "Tailwind", "Stripe API"],
-    challenge:
-      "Standard monolithic e-commerce platforms suffered from rigid UIs and slow time-to-interactive metrics.",
-    execution:
-      "Built a headless storefront decoupling the UI from the database, utilizing edge-caching for product pages.",
-    outcome: "Lighthouse Performance Score: 99/100.",
-  },
-];
-
-const APPROACH_STEPS = [
-  {
-    number: "01",
-    title: "Diagnostic Audit",
-    description:
-      "Deep-dive analysis of existing infrastructure, data pipelines, and operational bottlenecks. We identify exactly where automation and modern web tech will yield the highest ROI.",
-  },
-  {
-    number: "02",
-    title: "Architecture Blueprint",
-    description:
-      "Formulating a scalable technical strategy. Selecting the optimal tech stack, designing database schemas, and mapping user/data flows before writing a single line of code.",
-  },
-  {
-    number: "03",
-    title: "Agile Engineering",
-    description:
-      "Iterative, milestone-based development. We build robustly and transparently, providing access to staging environments so you can verify progress in real-time.",
-  },
-  {
-    number: "04",
-    title: "Deployment & Scaling",
-    description:
-      "Rigorous QA, load testing, and zero-downtime deployment. Post-launch, we monitor system health and scale server resources dynamically as traffic grows.",
-  },
-];
-
-const SectionHeader = ({ title, subtitle }) => (
-  <div className="mb-12">
-    <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-white mb-4">
-      {title}
-    </h2>
-    {subtitle && (
-      <p className="text-slate-400 font-sans max-w-2xl text-lg">{subtitle}</p>
-    )}
-  </div>
-);
-
-const ButtonPrimary = ({
-  children,
-  onClick,
-  type = "button",
-  disabled = false,
-  className = "",
-}) => (
-  <button
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    className={`bg-orange-500 hover:bg-orange-600 text-white font-sans font-medium px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
-  >
-    {children}
-  </button>
-);
-
-const ButtonOutline = ({
-  children,
-  onClick,
-  type = "button",
-  className = "",
-}) => (
-  <button
-    type={type}
-    onClick={onClick}
-    className={`border border-slate-700 hover:border-orange-500 hover:text-orange-500 text-slate-300 font-sans font-medium px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2 bg-slate-900/50 backdrop-blur-sm ${className}`}
-  >
-    {children}
-  </button>
-);
+import {
+  SectionHeader,
+  ButtonPrimary,
+  ButtonOutline,
+} from "./components/ui/SitePrimitives.jsx";
+import { SERVICES } from "./features/services/services.data.js";
+import { SOLUTIONS } from "./features/solutions/solutions.data.js";
+import { PROJECTS } from "./features/projects/projects.data.js";
+import { APPROACH_STEPS } from "./features/approach/approach.data.js";
 
 const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false);

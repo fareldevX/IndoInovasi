@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #020617;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-sans {
+  font-family: "Inter", sans-serif !important;
+}
+
+.font-serif {
+  font-family: "Space Grotesk", sans-serif !important;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dash-signal {
+    stroke-dasharray: 60 400;
+    stroke-dashoffset: 460;
+    animation: flow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .dash-signal-delayed {
+    stroke-dasharray: 40 400;
+    stroke-dashoffset: 440;
+    animation: flow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation-delay: 1.5s;
+  }
+
+  .animate-draw-wireframe {
+    animation: draw-fade 1.5s ease-out forwards;
+  }
+
+  .animate-scan-vertical {
+    animation: scan-v 3s ease-in-out infinite;
+  }
+
+  .animate-conveyor {
+    animation: conveyor-move 4s linear infinite;
+  }
+
+  .animate-conveyor-delayed {
+    animation: conveyor-move 4s linear infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes flow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes draw-fade {
+    0% {
+      opacity: 0;
+      transform: scale(0.98) translateY(5px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes scan-v {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateY(210px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes conveyor-move {
+    0% {
+      transform: translate(-30px, 0);
+      opacity: 0;
+    }
+    10%,
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(130px, -50px);
+      opacity: 0;
+    }
+  }
+}
