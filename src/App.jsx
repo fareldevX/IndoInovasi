@@ -201,7 +201,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
             : "w-full bg-transparent py-4"
         }`}
       >
-        {/* Logo */}
+        {/* Logo Brand */}
         <div className="flex items-center gap-2 cursor-pointer z-50">
           <Code2 className="w-6 h-6 text-orange-500" />
           <span className="text-xl font-bold tracking-tighter uppercase font-serif text-white">
