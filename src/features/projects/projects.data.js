@@ -9,6 +9,9 @@ export const PROJECTS = [
     execution:
       "Engineered a lightweight NLP model to pre-sort queries, integrated via REST API into the existing dashboard interface.",
     outcome: "Query routing time reduced by 94% (< 200ms per query).",
+    metric: 94,
+    unit: "%",
+    metricLabel: "less time spent routing each query",
   },
   {
     id: "prj-2",
@@ -20,5 +23,8 @@ export const PROJECTS = [
     execution:
       "Built a headless storefront decoupling the UI from the database, utilizing edge-caching for product pages.",
     outcome: "Lighthouse Performance Score: 99/100.",
+    metric: 99,
+    unit: "/100",
+    metricLabel: "Lighthouse performance score",
   },
 ];

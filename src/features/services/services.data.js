@@ -1,53 +1,50 @@
 export const SERVICES = [
   {
     id: "ai-ml",
+    name: "Automation",
     title: "AI & Machine Learning Automation",
-    shortDesc:
-      "Custom neural networks and automation protocols to eliminate manual workflows.",
-    problem:
-      "Operational friction, slow data entry, and inefficient manual tasks.",
-    deliverables: [
-      "Custom automation scripts",
-      "ML model integration",
-      "Workflow automation bots",
-    ],
+    shortDesc: "Models and automations that take over the repetitive work: sorting, tagging, routing, reporting.",
+    problem: "Your team re-types, re-sorts and re-checks the same data every day.",
+    deliverables: ["Workflow automation", "ML model integration", "Custom bots and scripts"],
   },
   {
-    id: "web-platform",
-    title: "Corporate Web Platforms",
-    shortDesc:
-      "High-performance digital interfaces engineered for scale, security, and conversion.",
-    problem:
-      "Poor digital presence, slow loading speeds, and disjointed brand identity.",
-    deliverables: [
-      "React/Node.js Architecture",
-      "Headless CMS Integration",
-      "Technical UI/UX Design",
-    ],
+    id: "landing-page",
+    name: "Landing pages",
+    title: "Professional Landing Page Development",
+    shortDesc: "Single pages built for one job: turning a campaign visit into an inquiry.",
+    problem: "Ad traffic arrives and leaves because the page is slow or unclear.",
+    deliverables: ["Conversion-led copy and layout", "Sub-second load times", "Form and tracking setup"],
+  },
+  {
+    id: "company-profile",
+    name: "Company profiles",
+    title: "Company Profile Website",
+    shortDesc: "A site that shows how your company really works and reads as credible in ten seconds.",
+    problem: "Your website looks like every competitor's template.",
+    deliverables: ["Brand-led design system", "CMS your team can edit", "Structure ready for more languages"],
   },
   {
     id: "ecommerce",
-    title: "E-Commerce Engineering",
-    shortDesc:
-      "Robust transaction pipelines and inventory management systems built for volume.",
+    name: "E-commerce",
+    title: "E-commerce Development",
+    shortDesc: "Storefronts, payments and inventory logic built for volume, not for a template.",
     problem: "Marketplace dependency and rigid, unscalable catalog structures.",
-    deliverables: [
-      "Custom Storefronts",
-      "Payment Gateway Integration",
-      "Automated Inventory Logic",
-    ],
+    deliverables: ["Custom storefronts", "Payment gateway integration", "Automated inventory logic"],
   },
   {
-    id: "seo-analytics",
-    title: "SEO & Digital Analytics",
-    shortDesc:
-      "Data-driven visibility architectures and granular metric tracking dashboards.",
-    problem:
-      "Invisible in search, decisions based on instinct rather than hard data.",
-    deliverables: [
-      "Technical SEO Audits",
-      "Custom Analytics Dashboards",
-      "Conversion Rate Optimization",
-    ],
+    id: "seo",
+    name: "SEO",
+    title: "SEO Optimization",
+    shortDesc: "Technical and content groundwork that makes the right people find you.",
+    problem: "Customers search for what you sell and find someone else.",
+    deliverables: ["Technical SEO audit", "Content and URL structure", "Core Web Vitals fixes"],
+  },
+  {
+    id: "analytics",
+    name: "Analytics",
+    title: "Digital Analytics & Data-Driven Solutions",
+    shortDesc: "Event tracking and dashboards that show what visitors do and why they leave.",
+    problem: "Decisions are made on instinct because the numbers are scattered or missing.",
+    deliverables: ["Event tracking plan", "Custom dashboards", "Conversion rate optimization"],
   },
 ];

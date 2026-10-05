@@ -1,46 +1,37 @@
-export function SectionHeader({ title, subtitle }) {
-  return (
-    <div className="mb-12">
-      <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-white mb-4">
-        {title}
-      </h2>
-      {subtitle && (
-        <p className="text-slate-400 font-sans max-w-2xl text-lg">{subtitle}</p>
-      )}
-    </div>
-  );
+// Each entry is one line of a headline, wrapped so GSAP can slide it up from a mask.
+export function Lines({ lines, className = "" }) {
+  return lines.map((line, i) => {
+    const { t, cls = "" } = typeof line === "string" ? { t: line } : line;
+    return (
+      <span
+        key={i}
+        className={`ln-mask block overflow-hidden pb-[0.12em] -mb-[0.12em] ${className} ${cls}`}
+      >
+        <span className="ln block">{t}</span>
+      </span>
+    );
+  });
 }
 
-export function ButtonPrimary({
-  children,
-  onClick,
-  type = "button",
-  disabled = false,
-  className = "",
-}) {
+export function ButtonPrimary({ children, onClick, type = "button", disabled = false, className = "" }) {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`bg-orange-500 hover:bg-orange-600 text-white font-sans font-medium px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`inline-flex items-center justify-center gap-3 bg-signal px-7 py-4 font-display text-lg font-bold text-[#0b1a1c] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 ${className}`}
     >
       {children}
     </button>
   );
 }
 
-export function ButtonOutline({
-  children,
-  onClick,
-  type = "button",
-  className = "",
-}) {
+export function ButtonOutline({ children, onClick, type = "button", className = "" }) {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`border border-slate-700 hover:border-orange-500 hover:text-orange-500 text-slate-300 font-sans font-medium px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2 bg-slate-900/50 backdrop-blur-sm ${className}`}
+      className={`inline-flex items-center gap-2 border-b border-current py-1 font-medium text-fg transition-colors hover:text-signal ${className}`}
     >
       {children}
     </button>

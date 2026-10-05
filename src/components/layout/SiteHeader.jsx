@@ -1,125 +1,70 @@
 import { useEffect, useState } from "react";
-import { Code2, Menu, X } from "lucide-react";
-import { ButtonPrimary } from "../ui/SitePrimitives.jsx";
+import { Menu, X } from "lucide-react";
+import { goTo } from "../../lib/motion.js";
+
+const LINKS = [
+  ["services", "Services"],
+  ["work", "Work"],
+  ["approach", "Approach"],
+];
 
 export default function SiteHeader({ mobileMenuOpen, setMobileMenuOpen }) {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const jump = (id) => {
+    setMobileMenuOpen(false);
+    goTo(id);
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ${isScrolled ? "pt-4" : "pt-6"}`}
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${scrolled ? "bg-bg/85" : ""}`}
     >
-      <div
-        className={`transition-all duration-500 flex items-center justify-between w-full max-w-7xl mx-auto px-6 ${
-          isScrolled
-            ? "md:w-[85%] bg-slate-950/80 backdrop-blur-xl rounded-full py-3 shadow-lg shadow-black/40"
-            : "w-full bg-transparent py-4"
-        }`}
-      >
-        <div className="flex items-center gap-2 cursor-pointer z-50">
-          <Code2 className="w-6 h-6 text-orange-500" />
-          <span className="text-xl font-bold tracking-tighter uppercase font-serif text-white">
-            IndoInovasi
-          </span>
-        </div>
-
-        <div className="hidden md:flex items-center bg-slate-900/50 border border-slate-800/50 rounded-full px-1 py-1">
-          <a
-            href="#services"
-            className="px-5 py-2 text-sm font-sans text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-all"
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 md:px-10">
+        <a href="#top" className="relative z-50 font-display text-xl font-extrabold tracking-tight">
+          IndoInovasi
+        </a>
+        <nav className="hidden items-center gap-10 text-[15px] md:flex">
+          {LINKS.map(([id, label]) => (
+            <button key={id} onClick={() => jump(id)} className="transition-colors hover:text-signal">
+              {label}
+            </button>
+          ))}
+          <button
+            onClick={() => jump("inquiry")}
+            className="border-b border-signal py-0.5 font-medium text-signal"
           >
-            Services
-          </a>
-          <a
-            href="#work"
-            className="px-5 py-2 text-sm font-sans text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-all"
-          >
-            Work
-          </a>
-          <a
-            href="#approach"
-            className="px-5 py-2 text-sm font-sans text-slate-300 hover:text-white hover:bg-slate-800 rounded-full transition-all"
-          >
-            Approach
-          </a>
-        </div>
-
-        <div className="hidden md:flex items-center gap-4">
-          <a
-            href="#inquiry"
-            className="text-sm font-sans text-slate-300 hover:text-white transition-colors"
-          >
-            Client Portal
-          </a>
-          <ButtonPrimary
-            className="!py-2 !px-5 text-sm"
-            onClick={() =>
-              document
-                .getElementById("inquiry")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Start Project
-          </ButtonPrimary>
-        </div>
-
+            Start a project
+          </button>
+        </nav>
         <button
-          className="md:hidden text-slate-300 z-50"
+          className="relative z-50 md:hidden"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-slate-950 z-40 flex flex-col justify-center items-center gap-8 px-6 animate-in fade-in duration-300">
-          <a
-            href="#services"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-4xl font-serif text-white hover:text-orange-500 transition-colors"
-          >
-            Services
-          </a>
-          <a
-            href="#work"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-4xl font-serif text-white hover:text-orange-500 transition-colors"
-          >
-            Work
-          </a>
-          <a
-            href="#approach"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-4xl font-serif text-white hover:text-orange-500 transition-colors"
-          >
-            Approach
-          </a>
-          <div className="w-16 h-px bg-slate-800 my-4"></div>
-          <ButtonPrimary
-            className="w-full max-w-xs"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              document
-                .getElementById("inquiry")
-                .scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Start a Project
-          </ButtonPrimary>
+        <div className="fixed inset-0 z-40 flex flex-col justify-end gap-2 bg-bg px-5 pb-12">
+          {[...LINKS, ["inquiry", "Start a project"]].map(([id, label]) => (
+            <button
+              key={id}
+              onClick={() => jump(id)}
+              className="display border-t border-line py-4 text-left text-[15vw] hover:text-signal"
+            >
+              {label}
+            </button>
+          ))}
         </div>
       )}
-    </nav>
+    </header>
   );
 }

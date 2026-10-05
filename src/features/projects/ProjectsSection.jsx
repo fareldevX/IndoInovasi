@@ -1,74 +1,67 @@
-import { ArrowUpRight } from "lucide-react";
-import { SectionHeader } from "../../components/ui/SitePrimitives.jsx";
+import { useLayoutEffect, useRef } from "react";
+import { gsap, MOTION_OK } from "../../lib/motion.js";
 import { PROJECTS } from "./projects.data.js";
 
 export default function ProjectsSection() {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+    mm.add(
+      MOTION_OK,
+      () => {
+        gsap.utils.toArray(".prj").forEach((prj) => {
+          const num = prj.querySelector(".prj-num");
+          const target = Number(num.dataset.value);
+          const counter = { v: 0 };
+          // The metric counts up once, as the project enters.
+          gsap.to(counter, {
+            v: target, duration: 1.6, ease: "power3.out",
+            onUpdate: () => (num.textContent = Math.round(counter.v)),
+            scrollTrigger: { trigger: prj, start: "top 70%", once: true },
+          });
+          // It also drifts slower than the text, giving the number physical weight.
+          gsap.fromTo(num, { yPercent: 10 }, {
+            yPercent: -10, ease: "none",
+            scrollTrigger: { trigger: prj, start: "top bottom", end: "bottom top", scrub: true },
+          });
+        });
+      },
+      ref,
+    );
+    return () => mm.revert();
+  }, []);
+
   return (
-    <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
-      <SectionHeader
-        title="Concept Architecture"
-        subtitle="Demonstrations of technical depth and problem-solving capability."
-      />
-      <div className="space-y-12">
-        {PROJECTS.map((project) => (
-          <article
-            key={project.id}
-            className="grid md:grid-cols-12 gap-8 border border-slate-800 rounded-3xl bg-slate-900/20 overflow-hidden hover:border-slate-700 transition-colors group"
-          >
-            <div className="md:col-span-4 flex flex-col gap-4 p-8 md:p-12 bg-slate-900/50">
-              <span className="bg-orange-500/10 text-orange-500 border border-orange-500/20 text-xs font-mono uppercase tracking-widest px-4 py-1.5 rounded-full w-fit">
-                {project.type}
-              </span>
-              <h3 className="text-3xl font-serif font-bold tracking-tight leading-tight text-white mt-4">
-                {project.title}
-              </h3>
+    <section id="work" ref={ref} data-tone="light" className="relative px-5 py-28 md:px-10 md:py-44">
+      <div className="mx-auto max-w-[1600px]">
+        <h2 className="display mb-20 max-w-5xl text-[11vw] md:mb-32 md:text-[7vw]">
+          Proof, in numbers we can defend.
+        </h2>
 
-              <div className="mt-auto pt-12">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-3">
-                  Tech Stack
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {project.stack.map((technology) => (
-                    <span
-                      key={technology}
-                      className="border border-slate-700 bg-slate-800/50 px-3 py-1 rounded-md text-xs font-mono text-slate-300"
-                    >
-                      {technology}
-                    </span>
-                  ))}
+        <div className="space-y-32 md:space-y-52">
+          {PROJECTS.map((p, i) => {
+            const flip = i % 2 === 1;
+            return (
+              <article key={p.id} className="prj grid items-end gap-10 md:grid-cols-12">
+                <div className={`md:col-span-7 ${flip ? "md:order-2 md:text-right" : ""}`}>
+                  <p className="display text-[34vw] leading-[0.8] md:text-[21vw]">
+                    <span className="prj-num inline-block" data-value={p.metric}>{p.metric}</span>
+                    <span className="text-[0.38em] text-signal">{p.unit}</span>
+                  </p>
+                  <p className="mt-4 text-lg font-medium">{p.metricLabel}</p>
                 </div>
-              </div>
-            </div>
-
-            <div className="md:col-span-8 flex flex-col justify-between p-8 md:p-12 gap-10">
-              <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-3">
-                  The Challenge
-                </h4>
-                <p className="text-lg text-slate-200 font-sans leading-relaxed">
-                  {project.challenge}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-3">
-                  Execution
-                </h4>
-                <p className="text-slate-400 font-sans leading-relaxed">
-                  {project.execution}
-                </p>
-              </div>
-              <div className="bg-orange-500/5 p-6 border border-orange-500/20 rounded-xl flex items-center justify-between">
-                <div>
-                  <h4 className="font-mono text-xs uppercase tracking-wider text-orange-500 mb-2">
-                    Outcome Benchmark
-                  </h4>
-                  <p className="font-mono text-orange-200">{project.outcome}</p>
+                <div className={`md:col-span-5 ${flip ? "md:order-1" : ""}`}>
+                  <p className="text-sm text-mute">{p.type}</p>
+                  <h3 className="display mt-2 text-4xl md:text-5xl">{p.title}</h3>
+                  <p className="mt-8 leading-relaxed">{p.challenge}</p>
+                  <p className="mt-4 leading-relaxed text-mute">{p.execution}</p>
+                  <p className="mt-6 text-sm">{p.stack.join(", ")}</p>
                 </div>
-                <ArrowUpRight className="text-orange-500/50 w-8 h-8 group-hover:text-orange-500 transition-colors" />
-              </div>
-            </div>
-          </article>
-        ))}
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
